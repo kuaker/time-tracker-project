@@ -3,6 +3,7 @@ export type TimeEntry = {
     _id?: string;
     date: string;
     hours: number;
+    taskName: string; // Optional field for task name
     description: string;
 };
 

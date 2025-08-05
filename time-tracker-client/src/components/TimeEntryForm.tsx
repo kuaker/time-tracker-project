@@ -22,11 +22,18 @@ const TimeEntryForm = ({ onSubmit, initialData }: TimeEntryFormProps) => {
     }
   }, [initialData, form]);
 
-  const handleFinish = (values: any) => {
+  interface TimeEntryFormValues {
+    date: dayjs.Dayjs;
+    hours: number;
+    taskName?: string;
+    description: string;
+  }
+
+  const handleFinish = (values: TimeEntryFormValues) => {
     const formatted: TimeEntry = {
       date: values.date.toISOString(),
       hours: values.hours,
-      taskName: values.taskName || "Tarea sin nombre",
+      taskName: values.taskName || "", // Ensure taskName is a string
       description: values.description,
     };
     onSubmit(formatted);
@@ -46,6 +53,16 @@ const TimeEntryForm = ({ onSubmit, initialData }: TimeEntryFormProps) => {
         rules={[{ required: true, message: "La fecha es obligatoria" }]}
       >
         <DatePicker style={{ width: "100%" }} />
+      </Form.Item>
+
+      <Form.Item
+        label="Nombre de la tarea"
+        name="taskName"
+        rules={[
+          { required: true, message: "El nombre de la tarea es obligatorio" },
+        ]}
+      >
+        <Input />
       </Form.Item>
 
       <Form.Item
