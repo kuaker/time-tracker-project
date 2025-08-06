@@ -84,73 +84,86 @@ function App() {
   });
 
   return (
-    <Layout style={{ padding: "2rem", maxWidth: 800, margin: "auto" }}>
-      <Content>
-        <Title level={2}>Cargador de horas</Title>
+    <div
+      style={{
+        height: "100vh", // alto de toda la ventana
+        width: "100vw", // ancho de toda la ventana
+        display: "flex",
+        justifyContent: "center", // centrado horizontal
+        alignItems: "center", // centrado vertical
+        backgroundColor: "#f0f2f5", // gris claro (fondo de Ant Design)
+        padding: "20px", // espacio interno
+        boxSizing: "border-box",
+      }}
+    >
+      <Layout style={{ padding: "2rem", maxWidth: 800, margin: "auto" }}>
+        <Content>
+          <Title level={2}>Cargador de horas</Title>
 
-        {editingEntry ? (
-          <>
-            <Title level={4}>Editando entrada</Title>
-            <TimeEntryForm
-              onSubmit={handleEditSubmit}
-              initialData={editingEntry}
-            />
-            <Button
-              type="link"
-              onClick={() => setEditingEntry(null)}
-              style={{ marginTop: "1rem" }}
-            >
-              Cancelar edición
-            </Button>
-          </>
-        ) : (
-          <>
-            <Title level={4}>Nueva entrada</Title>
-            <TimeEntryForm onSubmit={handleAddEntry} />
-          </>
-        )}
-
-        <Space size="middle" style={{ margin: "2rem 0" }}>
-          <RangePicker
-            onChange={(dates) => {
-              setStartDate(dates?.[0]?.toISOString() || "");
-              setEndDate(dates?.[1]?.toISOString() || "");
-            }}
-          />
-          <Button onClick={() => exportToCSV(filteredEntries)}>📤 CSV</Button>
-          <Button onClick={() => exportToExcel(filteredEntries)}>
-            📊 Excel
-          </Button>
-        </Space>
-
-        <List
-          itemLayout="horizontal"
-          dataSource={filteredEntries}
-          renderItem={(entry) => (
-            <List.Item
-              actions={[
-                <Button type="link" onClick={() => startEditing(entry)}>
-                  ✏️
-                </Button>,
-                <Popconfirm
-                  title="¿Seguro que querés eliminar esta entrada?"
-                  onConfirm={() => handleDelete(entry._id!)}
-                >
-                  <Button type="link" danger>
-                    🗑️
-                  </Button>
-                </Popconfirm>,
-              ]}
-            >
-              <List.Item.Meta
-                title={dayjs(entry.date).format("YYYY-MM-DD")}
-                description={`${entry.hours}h - ${entry.description}`}
+          {editingEntry ? (
+            <>
+              <Title level={4}>Editando entrada</Title>
+              <TimeEntryForm
+                onSubmit={handleEditSubmit}
+                initialData={editingEntry}
               />
-            </List.Item>
+              <Button
+                type="link"
+                onClick={() => setEditingEntry(null)}
+                style={{ marginTop: "1rem" }}
+              >
+                Cancelar edición
+              </Button>
+            </>
+          ) : (
+            <>
+              <Title level={4}>Nueva entrada</Title>
+              <TimeEntryForm onSubmit={handleAddEntry} />
+            </>
           )}
-        />
-      </Content>
-    </Layout>
+
+          <Space size="middle" style={{ margin: "2rem 0" }}>
+            <RangePicker
+              onChange={(dates) => {
+                setStartDate(dates?.[0]?.toISOString() || "");
+                setEndDate(dates?.[1]?.toISOString() || "");
+              }}
+            />
+            <Button onClick={() => exportToCSV(filteredEntries)}>📤 CSV</Button>
+            <Button onClick={() => exportToExcel(filteredEntries)}>
+              📊 Excel
+            </Button>
+          </Space>
+
+          <List
+            itemLayout="horizontal"
+            dataSource={filteredEntries}
+            renderItem={(entry) => (
+              <List.Item
+                actions={[
+                  <Button type="link" onClick={() => startEditing(entry)}>
+                    ✏️
+                  </Button>,
+                  <Popconfirm
+                    title="¿Seguro que querés eliminar esta entrada?"
+                    onConfirm={() => handleDelete(entry._id!)}
+                  >
+                    <Button type="link" danger>
+                      🗑️
+                    </Button>
+                  </Popconfirm>,
+                ]}
+              >
+                <List.Item.Meta
+                  title={dayjs(entry.date).format("YYYY-MM-DD")}
+                  description={`${entry.hours}h - ${entry.description}`}
+                />
+              </List.Item>
+            )}
+          />
+        </Content>
+      </Layout>
+    </div>
   );
 }
 

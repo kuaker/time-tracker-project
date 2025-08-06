@@ -65,7 +65,7 @@ const TimeEntryForm = ({ onSubmit, initialData }: TimeEntryFormProps) => {
       form={form}
       layout="vertical"
       onFinish={handleFinish}
-      style={{ maxWidth: 600 }}
+      style={{ maxWidth: 600, width: "100%" }}
     >
       <Form.Item>
         <Checkbox checked={isHoliday} onChange={handleHolidayChange}>
