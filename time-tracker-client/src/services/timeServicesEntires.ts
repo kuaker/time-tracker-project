@@ -5,6 +5,7 @@ export type TimeEntry = {
     hours: number;
     taskName: string; // Optional field for task name
     description: string;
+    isHoliday: boolean; // Optional field for holiday
 };
 
 const API_URL = 'http://localhost:3000/api/time-entries';

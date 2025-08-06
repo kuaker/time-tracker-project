@@ -29,7 +29,7 @@ const { RangePicker } = DatePicker;
 
 function App() {
   const [entries, setEntries] = useState<TimeEntry[]>([]);
-  const [setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [editingEntry, setEditingEntry] = useState<TimeEntry | null>(null);

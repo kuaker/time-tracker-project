@@ -5,7 +5,11 @@ const TimeEntrySchema = new Schema({
     date: { type: String, required: true },
     hours: { type: Number, required: true },
     description: { type: String, required: true },
-    taskName: { type: String, required: true }
+    taskName: { type: String, required: true },
+    isHoliday: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 export default model('TimeEntry', TimeEntrySchema);
