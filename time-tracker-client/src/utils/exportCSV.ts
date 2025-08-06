@@ -3,8 +3,8 @@ import type { TimeEntry } from "../services/timeServicesEntires";
 export function exportToCSV(entries: TimeEntry[], filename = 'horas.csv') {
     if (!entries.length) return;
 
-    const headers = ['Fecha', 'Horas', 'Descripción'];
-    const rows = entries.map(e => [e.date, e.hours.toString(), `"${e.description}"`]);
+    const headers = ['Fecha', 'Horas', 'Nomre de Tarea', 'Descripción'];
+    const rows = entries.map(e => [e.date, e.hours.toString(), e.taskName, `"${e.description}"`]);
 
     const csvContent =
         [headers, ...rows]

@@ -8,6 +8,7 @@ export function exportToExcel(entries: TimeEntry[], filename = 'horas.xlsx') {
     const data = entries.map(entry => ({
         Fecha: entry.date,
         Horas: entry.hours,
+        Nombre_de_Tarea: entry.taskName,
         Descripción: entry.description,
     }));
 
