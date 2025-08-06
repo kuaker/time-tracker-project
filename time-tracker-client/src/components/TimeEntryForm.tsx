@@ -1,6 +1,6 @@
-import { Form, Input, DatePicker, InputNumber, Button } from "antd";
+import { useEffect, useState } from "react";
+import { Form, Input, DatePicker, InputNumber, Button, Checkbox } from "antd";
 import dayjs from "dayjs";
-import { useEffect } from "react";
 import type { TimeEntry } from "../services/timeServicesEntires";
 
 interface TimeEntryFormProps {
@@ -10,6 +10,7 @@ interface TimeEntryFormProps {
 
 const TimeEntryForm = ({ onSubmit, initialData }: TimeEntryFormProps) => {
   const [form] = Form.useForm();
+  const [isHoliday, setIsHoliday] = useState(false);
 
   useEffect(() => {
     if (initialData) {
@@ -22,15 +23,41 @@ const TimeEntryForm = ({ onSubmit, initialData }: TimeEntryFormProps) => {
     }
   }, [initialData, form]);
 
-  const handleFinish = (values: any) => {
+  const handleHolidayChange = (e: any) => {
+    const checked = e.target.checked;
+    setIsHoliday(checked);
+
+    if (checked) {
+      form.setFieldsValue({
+        taskName: "Feriado",
+        hours: 8,
+      });
+    } else {
+      form.setFieldsValue({
+        taskName: "",
+        hours: undefined,
+      });
+    }
+  };
+
+  interface TimeEntryFormValues {
+    date: dayjs.Dayjs;
+    hours: number;
+    taskName: string;
+    description: string;
+  }
+
+  const handleFinish = (values: TimeEntryFormValues) => {
     const formatted: TimeEntry = {
       date: values.date.toISOString(),
       hours: values.hours,
-      taskName: values.taskName || "Tarea sin nombre",
+      taskName: values.taskName,
       description: values.description,
+      isHoliday: isHoliday,
     };
     onSubmit(formatted);
     form.resetFields();
+    setIsHoliday(false); // reset checkbox también
   };
 
   return (
@@ -40,12 +67,28 @@ const TimeEntryForm = ({ onSubmit, initialData }: TimeEntryFormProps) => {
       onFinish={handleFinish}
       style={{ maxWidth: 600 }}
     >
+      <Form.Item>
+        <Checkbox checked={isHoliday} onChange={handleHolidayChange}>
+          Día feriado
+        </Checkbox>
+      </Form.Item>
+
       <Form.Item
         label="Fecha"
         name="date"
         rules={[{ required: true, message: "La fecha es obligatoria" }]}
       >
         <DatePicker style={{ width: "100%" }} />
+      </Form.Item>
+
+      <Form.Item
+        label="Nombre de la tarea"
+        name="taskName"
+        rules={[
+          { required: true, message: "El nombre de la tarea es obligatorio" },
+        ]}
+      >
+        <Input disabled={isHoliday} />
       </Form.Item>
 
       <Form.Item
@@ -61,7 +104,11 @@ const TimeEntryForm = ({ onSubmit, initialData }: TimeEntryFormProps) => {
           },
         ]}
       >
-        <InputNumber step={0.5} style={{ width: "100%" }} />
+        <InputNumber
+          step={0.5}
+          disabled={isHoliday}
+          style={{ width: "100%" }}
+        />
       </Form.Item>
 
       <Form.Item
