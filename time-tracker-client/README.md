@@ -1,69 +1,72 @@
-# React + TypeScript + Vite
+# Frontend - Time Tracker Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este frontend es una aplicación web desarrollada con **React**, **TypeScript** y **Vite**. Utiliza las siguientes tecnologías principales:
 
-Currently, two official plugins are available:
+- **React 19** + **TypeScript**
+- **Vite** (build y dev server)
+- **Redux Toolkit** para manejo de estado global
+- **Material UI (MUI)** para componentes visuales
+- **React Router DOM** para ruteo
+- **i18next** y **react-i18next** para internacionalización
+- **notistack** para notificaciones
+- **Axios** para peticiones HTTP
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Estructura del proyecto
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+frontend/
+├── public/               # Archivos estáticos
+├── src/
+│   ├── assets/           # Recursos estáticos (imágenes, etc)
+│   ├── components/       # Componentes principales (Dashboard, Login, SignUp, modals, etc)
+│   ├── pages/            # Páginas de pantallas
+│   ├── services/         # Funciones para interactuar con el backend
+│   ├── utils             # Herramientas útiles
+│   ├── App.tsx           # Componente principal de rutas
+│   ├── main.tsx          # Entry point de la app
+│   └── ...
+├── index.html            # HTML principal
+├── vite.config.ts        # Configuración de Vite
+├── package.json          # Dependencias y scripts
+└── ...
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Scripts disponibles
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- `npm install`         – Instala las dependencias del proyecto
+- `npm run dev`         – Inicia el servidor de desarrollo en [http://localhost:3000](http://localhost:3000)
+- `npm run build`       – Genera el build de producción en `/dist`
+- `npm run lint`        – Ejecuta ESLint sobre el código fuente
+- `npm run preview`     – Sirve el build de producción localmente
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Configuración y desarrollo
+
+1. **Instalación:**
+
+```bash
+npm install
+```
+
+2. **Ejecutar en desarrollo:**
+
+```bash
+npm run dev
+```
+
+3. **Build de producción:**
+
+```bash
+npm run build
+```
+
+4. **Lint:**
+
+```bash
+npm run lint
+```
+
+5. **Preview (build local):**
+
+```bash
+npm run preview
 ```
